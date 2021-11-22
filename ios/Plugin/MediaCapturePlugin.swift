@@ -15,4 +15,12 @@ public class MediaCapturePlugin: CAPPlugin {
             "value": implementation.echo(value)
         ])
     }
+    @objc func captureAudio(_ call: CAPPluginCall) {
+        let duration = call.getDouble("duration") ?? 0.0
+        let audioCaptureVC = AudioCaptureViewController(duration: duration)
+        self.bridge?.viewController?.present(audioCaptureVC, animated: true, completion: nil)
+        call.resolve([
+            "sessionSuccess": true
+        ])
+    }
 }
